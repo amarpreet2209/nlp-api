@@ -17,7 +17,6 @@ def example():
 	text = transcript.text
 	return text
 
-
 app.run()
 
 
