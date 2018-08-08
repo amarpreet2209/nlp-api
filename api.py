@@ -4,12 +4,12 @@ app = Flask(__name__)
 # import speech_recognition as sr
 # r = sr.Recognizer()
 
-import assemblyai
-aai = assemblyai.Client(token='39f8f26db4c546c99308fba032eda3dd')
+# import assemblyai
+# aai = assemblyai.Client(token='39f8f26db4c546c99308fba032eda3dd')
 
+# , methods=["POST","GET"]
 
-
-@app.route('/', methods=["POST","GET"])
+@app.route('/')
 def example():
 	# harvard = sr.AudioFile('house.wav')
 	# with harvard as source:
