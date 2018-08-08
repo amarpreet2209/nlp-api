@@ -1,18 +1,19 @@
 import os
 from flask import Flask, request
+app = Flask(__name__)
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-app = Flask(__name__)
+
 
  # import speech_recognition as sr
 # r = sr.Recognizer()
 import assemblyai
 aai = assemblyai.Client(token='39f8f26db4c546c99308fba032eda3dd')
 @app.route('/', methods=["POST"])
-def example():
+def index():
 	# harvard = sr.AudioFile('house.wav')
 	# with harvard as source:
  #  		audio = r.record(source)
