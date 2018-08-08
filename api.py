@@ -9,18 +9,22 @@ aai = assemblyai.Client(token='39f8f26db4c546c99308fba032eda3dd')
 
 
 
-@app.route('/', methods=["POST"])
+@app.route('/', methods=["POST","GET"])
 def example():
 	# harvard = sr.AudioFile('house.wav')
 	# with harvard as source:
  #  		audio = r.record(source)
 	# text = r.recognize_google(audio)
-	f = request.files['file']
-	transcript = aai.transcribe(filename=f.filename)
-	while transcript.status != 'completed':
-		transcript = transcript.get()
-	text = transcript.text
 
-	return text
+
+
+	# f = request.files['file']
+	# transcript = aai.transcribe(filename=f.filename)
+	# while transcript.status != 'completed':
+	# 	transcript = transcript.get()
+	# text = transcript.text
+
+	return "text"
 app.run()
+
 
