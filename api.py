@@ -1,5 +1,12 @@
-from flask import Flask,request
+import os
+from flask import Flask, request
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+
 app = Flask(__name__)
+
  # import speech_recognition as sr
 # r = sr.Recognizer()
 import assemblyai
@@ -10,13 +17,22 @@ def example():
 	# with harvard as source:
  #  		audio = r.record(source)
 	# text = r.recognize_google(audio)
-	f = request.files['file']
-	transcript = aai.transcribe(filename=f.filename)
-	while transcript.status != 'completed':
-		transcript = transcript.get()
-	text = transcript.text
+	# file = request.files['file']
+	target = os.path.join(UPLOAD_FOLDER,'')
+
+	if not os.path.isdir(target):
+		os.mkdir(target)
+
+	for f in request.files.getlist("file"):
+		destination = "/".join([target,f.filename])
+		f.save(destination)
+		
+		transcript = aai.transcribe(filename=f.filename)
+		while transcript.status != 'completed':
+			transcript = transcript.get()
+		text = transcript.text
 	return text
 
-app.run()
+app.run(debug=True)
 
 
