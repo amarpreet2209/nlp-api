@@ -8,10 +8,10 @@ UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 
- # import speech_recognition as sr
-# r = sr.Recognizer()
-import assemblyai
-aai = assemblyai.Client(token='39f8f26db4c546c99308fba032eda3dd')
+import speech_recognition as sr
+r = sr.Recognizer()
+# import assemblyai
+# aai = assemblyai.Client(token='39f8f26db4c546c99308fba032eda3dd')
 @app.route('/', methods=["POST"])
 def index():
 	# harvard = sr.AudioFile('house.wav')
@@ -28,10 +28,14 @@ def index():
 		destination = "/".join([target,f.filename])
 		f.save(destination)
 		
-		transcript = aai.transcribe(filename=f.filename)
-		while transcript.status != 'completed':
-			transcript = transcript.get()
-		text = transcript.text
+		# transcript = aai.transcribe(filename=f.filename)
+		# while transcript.status != 'completed':
+		# 	transcript = transcript.get()
+		# text = transcript.text
+		harvard = sr.AudioFile(f.filename)
+		with harvard as source:
+  			audio = r.record(source)
+		text = r.recognize_google(audio)
 	return text
 
 
